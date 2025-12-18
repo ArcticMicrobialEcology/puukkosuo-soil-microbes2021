@@ -1,5 +1,7 @@
 # Puukkosuo soil microbes 2025
 
+![Puukkosuo peatland study site](images/puukkosuo.jpg)
+
 **Note:** This repository contains analysis codes and scripts for the manuscript:
 
 *"Soil microbiome structure and function reflect environmental gradients and reindeer exclusion in a northern peatland (2025)"*.
