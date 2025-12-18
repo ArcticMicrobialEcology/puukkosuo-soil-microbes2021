@@ -122,8 +122,8 @@ mkdir coverm
 # make coverm available in the path
 export PATH="$software_base_dir/coverm/bin:$PATH"
 coverm genome \
-  -1 "$fastq_dir/"*_R1*.fastq \
-  -2 "$fastq_dir/"*_R2*.fastq \
+  -1 "${fastq_dir}"/*_R1*.fastq \
+  -2 "${fastq_dir}"/*_R1*.fastq \
   --genome-fasta-files mag_fasta/*.fa \
   --methods relative_abundance mean covered_fraction tpm \
   --min-read-aligned-percent 80 \
@@ -132,6 +132,7 @@ coverm genome \
   --output-format dense
 echo "*******************************************************"
 echo "*******************************************************"
+
 
 echo "All done, thank you. Please double-check everything..."
 echo "*******************************************************"
