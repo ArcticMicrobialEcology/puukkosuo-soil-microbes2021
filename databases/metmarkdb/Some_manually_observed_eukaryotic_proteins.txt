@@ -1,0 +1,18 @@
+AclB-XP_003613199.1 - Medicago truncatula
+SdhA_FrdA-Arabidopsis thaliana (Group 5c)
+SdhA_FrdA-Ascaris suum (Group 5c)
+SdhA_FrdA-Aspergillus niger (Group 5c)
+SdhA_FrdA-Blattella germanic (Group 1c)
+SdhA_FrdA-Caenorhabditis elegans (Group 5c)
+SdhA_FrdA-Candida albicans (Group 5c)
+SdhA_FrdA-Drosophila melanogaster (Group 5c)
+SdhA_FrdA-Homo sapiens (Group 5c)
+SdhA_FrdA-Neurospora crassa (Group 5c)
+SdhA_FrdA-Penicillium chrysogenum (Group 5c)
+SdhA_FrdA-Porphyra umbilicalis (Group 1a)
+SdhA_FrdA-Saccharomyces cerevisiae (Group 5c)
+SdhA_FrdA-Trichophyton rubrum (Group 5c)
+SdhA_FrdA-Ustilago maydis (Group 5c)
+NirK-XP_003067932.1 - Coccidioides posadasii
+FeFe-XP_001318941.1 - Trichomonas vaginalis - [FeFe] Group A1
+Sqr-XP_029646137.1 - Octopus vulgaris - Sqr II

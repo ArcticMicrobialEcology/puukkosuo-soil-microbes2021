@@ -5,13 +5,6 @@ args <- commandArgs(trailingOnly = TRUE)
 # the fourth parameter needs to be if the MetMarkDB hits should be filtered (1) or not (0) with the defined default limits.
 # currently the default limits: e-value 10^-6 and bitscore 50, change if needed
 
-# e.g.
-# args <- character(4)
-# args[1] <- "/scratch/project_2007998/AGROBIO_Tommi/metagenomics/kegg_diamond/sample_details"
-# args[2] <- "/scratch/project_2007998/AGROBIO_Tommi/metagenomics/metmarkdb_diamond/raw"
-# args[3] <- "/scratch/project_2007998/AGROBIO_Tommi/metagenomics/metmarkdb_diamond"
-# args[4] <- "0"
-
 # this is a small script to filter, combine R1 and R2 alignment hits from paired reads to the 51 functional marker gene prokaryotic database, aggregate to marker gene level and transform to TPM  
 
 # load libraries
@@ -119,13 +112,11 @@ for(f in 1:length(all_files)){
   # first filter both read pair hits separately according to limits suggested by the creators of the database for short reads
   # then combine the remaining hits for the paired reads.
   
-  # filter the marker genes with the limits given by Pok Leung. The DIAMOND aligment should be performed also with the
-  # same parameters (now applied) he has given in his scripts for this filtering to be effective.
-  # from him: I usually only analyse reads from 130 - 150 bps and retain hits with over 80% query coverage. Rare metabolic marker genes should still be captured when the number of reads is over 5M. 
-  # his scripts as well as the functional 51 marker genes protein database has been downloaded from google drive
-  # https://drive.google.com/drive/folders/1IeDF4iUbTtPhuaBOyQkrAlXO67EbkJ-A
-  
-  # a marine microbiome study using similar (but not exactly the same) scripts (but same filtering limits)
+  # filter the marker genes with the limits suggested by Dr Pok Man Leung. The DIAMOND aligment should be performed also with the
+  # suggested parameters (now applied) for this filtering to be effectiv.
+  # for reads with 130 - 150 bps retain hits with over 80% query coverage. Rare metabolic marker genes should still be captured when the number of reads is over 5M 
+
+  # a marine microbiome study using the database with the same filtering limits
   # https://doi.org/10.1038/s41564-023-01322-0
 
   # reference for the database
