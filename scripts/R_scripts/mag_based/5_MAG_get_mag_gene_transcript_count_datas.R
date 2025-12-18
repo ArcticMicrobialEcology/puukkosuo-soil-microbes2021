@@ -117,7 +117,7 @@ bin_mt_datas <- list()
 
 # compile marker gene level tpm, rpk, etc. datas for all final MAGs
 keep_items1 <- ls()
-keep_items1 <- c(keep_items1, "keep_items")
+keep_items1 <- c(keep_items1, "keep_items1")
 for(bin in 1:length(bin_annotations)){
   
   print(paste("Processing bin/MAG:", names(bin_annotations)[bin]))
