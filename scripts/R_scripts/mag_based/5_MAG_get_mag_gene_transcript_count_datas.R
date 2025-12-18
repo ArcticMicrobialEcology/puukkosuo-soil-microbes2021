@@ -135,7 +135,7 @@ for(bin in 1:length(bin_annotations)){
   
   # process both metagenomics and metatranscriptomics similarly
   keep_items2 <- ls()
-  keep_items2 <- c(keep_items1, "keep_items2")
+  keep_items2 <- c(keep_items2, "keep_items2")
   for(om in 1:2){
     
     # change directory

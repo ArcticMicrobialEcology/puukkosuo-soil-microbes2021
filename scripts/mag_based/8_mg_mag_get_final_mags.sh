@@ -34,13 +34,6 @@ fastq_dir="$mg_main_dir/cutadapt_trimmed_fastq"
 # the list of treatment groups for which the coassembly is performed separately - prepared by the 1_SETUP script
 all_conditions_file="$project_root/metadata/Chosen_Conditions.txt"
 
-# directories and variables related to metatranscriptomics data
-# the main folder, where all the metatranscriptomics analysis steps and results will be stored
-mt_main_dir="$project_root/metatranscriptomics"
-
-# here are the trimmed fastq files filtered for ribosomal RNA for the samples
-rna_filtered_dir="$mt_main_dir/rrna_filtered_trimmed_fastq" 
-
 # save the conditions for the coassemblies in a variable
 mapfile -t CONDITIONS < "$all_conditions_file"
 
