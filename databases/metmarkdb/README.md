@@ -22,6 +22,8 @@ The database is used in the following analysis steps:
 - DIAMOND blastx searches
 - Functional annotation
 
+Relevant scripts are located in:
+
 - `scripts/1_setup_sample_names_databases.sh`
 - `scripts/read_based/8_mg_read_diamond_metmarkdb_combine_pairs_summarize.sh`
 - `scripts/read_based/9_mt_read_diamond_metmarkdb_combine_pairs_summarize.sh`
