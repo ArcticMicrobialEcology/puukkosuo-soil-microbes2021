@@ -10,6 +10,28 @@
 This repository contains the analysis scripts for the workflow used to process,
 analyze, and visualize the data in this study. 
 
+The repository contain scripts for the read-based, contig-based and MAG (metagenome assembled genomes) - based analysis performed for the manuscript.
+
+## Repository structure
+
+- `scripts/`  
+  Scripts for the main analysis workflows listed in the order they are run for the manuscript:
+  
+  - 1) read-based
+  - 2) contig-based
+  - 3) MAG-based
+
+- `databases/`  
+  Custom added databases and related metadata used by the workflow.
+  - `metmarkdb/`  
+    Metabolic marker gene database.
+
+- `metadata/`  
+  Study design and vegetation metadata, selected interesting core KEGG metabolic modules of interest, and environmental metadata required to run the analyses.
+
+- `images/`  
+  Images used in documentation (e.g., figures or photos shown in the README).
+
 **Status:** Repository under active development.  
 Analysis scripts are being updated and cleaned for publication. The repository will be 
 expanded with more scripts and documentation as this work progresses.
@@ -53,6 +75,16 @@ with the main following packages (additional packages could have been used for v
 - lme4 v1.1-35.1
 - lmerTest v3.1-3
 - fgsea v1.28.0 
+
+The repository contains the used Greening Lab metabolic marker gene database in:
+-  `databases/metmarkdb/`
+
+The repository does not contain the purchased and used KEGG prokaryotic gene amino acid sequence database used in the analysis.
+
+The repository does not contain the downloaded specific versions of the anvi'o KEGG database or the downloaded KEGG gene to KO mappings by the scripts:
+
+- `scripts/0a_setup_databases.sh`
+- `scripts/0b_download_kegg_mappings.sh`
 
 ## Contact information
 **Tommi Välikangas**
