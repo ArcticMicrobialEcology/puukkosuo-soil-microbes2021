@@ -8,7 +8,7 @@
 
 ## Overview
 This repository contains the analysis scripts for the workflow used to process,
-analyze, and visualize the data in this study. 
+analyze, and visualize the metagenomics, metatranscriptomics and environemntal data in this study. 
 
 The repository contain scripts for the read-based, contig-based and MAG (metagenome assembled genomes) - based analyses performed for the manuscript.
 
@@ -19,9 +19,9 @@ The repository contain scripts for the read-based, contig-based and MAG (metagen
 - `scripts/`  
   Scripts for the main analysis workflows:
   
-  - 1) read-based
-  - 2) contig-based
-  - 3) MAG-based
+  - 1. read-based
+  - 2. contig-based
+  - 3. MAG-based
 
 - `databases/`  
   Custom added databases and related metadata used by the workflow
