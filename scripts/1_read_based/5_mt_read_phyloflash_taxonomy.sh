@@ -45,7 +45,7 @@ echo "[$(date -Is)] Running phyloFlash and determining the taxonomic composition
 SAMPLE="$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$mt_sample_name_file")"
 
 # make phyloflash available
-export "PATH=$phyloflash_dir:$PATH"
+export PATH="$phyloflash_dir:$PATH"
 
 # make the result directories
 mkdir -p "$mt_main_dir/phyloflash"
@@ -65,7 +65,7 @@ phyloFlash.pl -dbhome "$phyloflash_db" \
 
 # unpack and copy the relevant output phyloFlash files for downstream processing
 tar xzf "$SAMPLE.phyloFlash.tar.gz"  --wildcards --no-anchored "*NTU*.csv"
-cp "*NTU*.csv" "$mt_main_dir/phyloflash/csv_files"
+cp *NTU*.csv "$mt_main_dir/phyloflash/csv_files"
 
 echo "*******************************************************"
 echo "*******************************************************"

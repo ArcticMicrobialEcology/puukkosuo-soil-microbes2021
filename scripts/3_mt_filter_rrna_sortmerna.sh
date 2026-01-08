@@ -40,7 +40,7 @@ echo "[$(date -Is)] Running SortMeRNA and filtering the metatranscriptomics read
 SAMPLE="$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$mt_sample_name_file")"
 
 # make sortmerna available
-export "PATH=$sortmerna_dir:$PATH"
+export PATH="$sortmerna_dir:$PATH"
 
 # create the result and working directories
 mkdir -p "$mt_main_dir/rrna_filtered_trimmed_fastq"

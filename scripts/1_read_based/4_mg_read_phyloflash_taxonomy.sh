@@ -44,7 +44,7 @@ mapfile -t SAMPLES < "$mg_sample_name_file"
 echo "[$(date -Is)] Running phyloFlash and determining the taxonomic composition..."
 
 # make phyloflash available
-export "PATH=$phyloflash_dir:$PATH"
+export PATH="$phyloflash_dir:$PATH"
 
 # make the result directories
 mkdir -p "$mg_main_dir/phyloflash"
@@ -70,7 +70,7 @@ for j in "${!SAMPLES[@]}"; do
 	
 	# unpack and copy the relevant output phyloFlash files for downstream processing
 	tar xzf "${SAMPLES[$j]}.phyloFlash.tar.gz" --wildcards --no-anchored "*NTU*.csv"
-	cp "*NTU*.csv" "$mg_main_dir/phyloflash/csv_files"
+	cp *NTU*.csv "$mg_main_dir/phyloflash/csv_files"
 	
 	cd ..
 	echo "*******************************************************"
