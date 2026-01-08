@@ -2,7 +2,7 @@
 #SBATCH --job-name=phyloflash
 #SBATCH --error=4_mg_read_phyloflash_%A_%a_err.txt
 #SBATCH --output=4_mg_read_phyloflash_%A_%a_out.txt
-#SBATCH --partition small
+#SBATCH --partition=small
 #SBATCH --nodes 1
 #SBATCH --ntasks 1
 #SBATCH --cpus-per-task 20

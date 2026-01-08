@@ -2,7 +2,7 @@
 #SBATCH --job-name=phyloflash
 #SBATCH --error=5_mt_read_phyloflash_%A_%a_err.txt
 #SBATCH --output=5_mt_read_phyloflash_%A_%a_out.txt
-#SBATCH --partition hugemem
+#SBATCH --partition=hugemem
 #SBATCH --nodes 1
 #SBATCH --ntasks 1
 #SBATCH --cpus-per-task 30
