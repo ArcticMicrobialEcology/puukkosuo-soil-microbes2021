@@ -13,8 +13,8 @@
 # a script to perform differential abundance and expression analysis using linear mixed effects models for all the functional datas
 
 # define the needed directories
-# this is the project root directory
-project_root="/scratch/project_2009164/2_OULANKA/Tommi/final"
+# this is the project root directory under which all the subdirectories, results etc. are created.
+project_root="" # e.g. "/scratch/project_number/puukkosuo"
 
 # the directories for the scripts and the R scripts
 scripts_dir="$project_root/scripts"

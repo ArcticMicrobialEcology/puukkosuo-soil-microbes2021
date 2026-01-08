@@ -13,8 +13,8 @@
 # a script to summarize the combined KEGG aligment results for the metagenomics data to the KO level
 
 # define the needed directories
-# this is the project root directory
-project_root="/scratch/project_2009164/2_OULANKA/Tommi/final"
+# this is the project root directory under which all the subdirectories, results etc. are created.
+project_root="" # e.g. "/scratch/project_number/puukkosuo"
 
 # the main folder, where all the metagenomics analysis steps and results will be stored
 mg_main_dir="$project_root/metagenomics"

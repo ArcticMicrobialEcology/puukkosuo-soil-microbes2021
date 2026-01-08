@@ -13,18 +13,18 @@
 # set up  sample information and compile some installed databases needed by the workflow
 
 # define the needed directories
-# this is the project root directory
-project_root="/scratch/project_2009164/2_OULANKA/Tommi/final"
+# this is the project root directory under which all the subdirectories, results etc. are created.
+project_root="" # e.g. "/scratch/project_number/puukkosuo"
 
 # this is the directory where all the external needed software not found already in Puhti have been installed to
-software_base_dir="/projappl/project_2009164" 
+software_base_dir="" # e.g. "/projappl/project_number" 
 
 # the database directory where the needed databases are installed
 database_base_dir="$project_root/databases"
 
-# the metagenomics and metatranscriptomics raw data directories
-mg_raw_data_dir="/scratch/project_2009164/2_OULANKA/1_RAW/metagenomics"
-mt_raw_data_dir="/scratch/project_2009164/2_OULANKA/1_RAW/metatranscriptomics"
+# the metagenomics and metatranscriptomics raw data directories where the raw data are deposited as fastq.gz files - not in subdirectories
+mg_raw_data_dir="" # e.g. "/scratch/project_number/RAW/metagenomics"
+mt_raw_data_dir="" # e.g. "/scratch/project_number/RAW/metatranscriptomics"
 
 # the directories for the scripts and the R scripts
 scripts_dir="$project_root/scripts"

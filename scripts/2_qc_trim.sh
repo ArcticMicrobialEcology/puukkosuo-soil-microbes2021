@@ -13,16 +13,16 @@
 # a script to QC and trim the raw sequencing files for metagenomics and metatranscriptomics
 
 # define the needed directories
-# this is the project root directory
-project_root="/scratch/project_2009164/2_OULANKA/Tommi/final"
+# this is the project root directory under which all the subdirectories, results etc. are created.
+project_root="" # e.g. "/scratch/project_number/puukkosuo"
 
 # the main folder, where all the metagenomics analysis steps and results will be stored
 mg_main_dir="$project_root/metagenomics"
 # create the directory
 mkdir -p "$mg_main_dir" 
 
-# the diretory that contains the raw metagenomics fastq files
-mg_raw_data_dir="/scratch/project_2009164/2_OULANKA/1_RAW/metagenomics"
+# the directory that contains the raw metagenomics data where the raw data are deposited as fastq.gz files - not in subdirectories
+mg_raw_data_dir="" # e.g. "/scratch/project_number/RAW/metagenomics"
 
 # sample name file for the metagenomics samples - prepared by the 1_SETUP script
 mg_sample_name_file="$project_root/metadata/MG_Sample_Names.txt"
@@ -99,8 +99,8 @@ mt_main_dir="$project_root/metatranscriptomics"
 # create the directory
 mkdir -p "$mt_main_dir" 
 
-# the diretory that contains the raw metatranscriptomics fastq files
-mt_raw_data_dir=/scratch/project_2009164/2_OULANKA/1_RAW/metatranscriptomics
+# the directory that contains the raw metatranscriptomi data where the raw data are deposited as fastq.gz files - not in subdirectories
+mt_raw_data_dir="" # e.g. "/scratch/project_number/RAW/metatranscriptomics"
 
 # sample name file for the metatranscriptomics samples - prepared by the 1_SETUP script
 mt_sample_name_file="$project_root/metadata/MT_Sample_Names.txt"

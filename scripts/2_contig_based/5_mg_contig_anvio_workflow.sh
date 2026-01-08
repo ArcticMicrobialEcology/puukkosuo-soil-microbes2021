@@ -15,11 +15,11 @@
 # this workflow concatenates the contigs from different coassemblies into one and processes them all together
 
 # define the needed directories
-# this is the project root directory
-project_root="/scratch/project_2009164/2_OULANKA/Tommi/final"
+# this is the project root directory under which all the subdirectories, results etc. are created.
+project_root="" # e.g. "/scratch/project_number/puukkosuo"
 
 # this is the directory where all the external needed software not found already in Puhti have been installed to
-software_base_dir="/projappl/project_2009164" 
+software_base_dir="" # e.g. "/projappl/project_number" 
 
 # the database directory where the needed databases are installed
 database_base_dir="$project_root/databases"
