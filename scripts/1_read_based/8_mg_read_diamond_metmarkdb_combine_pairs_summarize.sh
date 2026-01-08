@@ -40,8 +40,8 @@ met_markdb_database_dir="$database_base_dir/metmarkdb"
 # sample name file for the metagenomics samples - prepared by the 1_SETUP script
 mg_sample_name_file="$project_root/metadata/MG_Sample_Names.txt"
 
-# define the sample to be processed, run as an slurm array job
-SAMPLE="$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$mg_sample_name_file")"
+# map sample names to a variable
+mapfile -t SAMPLES < "$mg_sample_name_file"
 
 # make the result directories
 mkdir -p "$mg_main_dir/metmarkdb_diamond/raw"

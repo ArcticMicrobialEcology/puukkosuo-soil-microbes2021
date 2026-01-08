@@ -40,6 +40,7 @@ met_markdb_database_dir="$database_base_dir/metmarkdb"
 # sample name file for the metagenomics samples - prepared by the 1_SETUP script
 mt_sample_name_file="$project_root/metadata/MT_Sample_Names.txt"
 
+# map sample names to a variable
 mapfile -t SAMPLES < "$mt_sample_name_file"
 
 # make the result directories
@@ -78,7 +79,7 @@ module purge
 # load the R environment
 module load r-env/432
 
-echo "[$(date -Is)] Combining the MetMarkDB alignment hits for the paired reads and aggregating them to gene level..."
+echo "[$(date -Is)] Combining the MetMarkDB alignment hits for the paired reads and aggregating them to marker gene level..."
 Rscript "$r_script_dir/3_READ_combine_MetMarkDB_alignment_paired_reads_summarize.R" "$mt_main_dir/kegg_diamond/sample_details" "$mt_main_dir/metmarkdb_diamond/raw" "$mt_main_dir/metmarkdb_diamond" "0"
 echo "*******************************************************"
 echo "*******************************************************"
