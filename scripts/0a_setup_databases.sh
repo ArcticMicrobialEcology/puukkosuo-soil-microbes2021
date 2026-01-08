@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=15
 #SBATCH --mem=256G
-#SBATCH --time 71:00:00
-#SBATCH --account project_2009164
+#SBATCH --time=71:00:00
+#SBATCH --account=project_2009164
 #SBATCH --gres=nvme:200
 
 # a script to install some external databases required to run the metagenomics / metatranscriptomics workflow on the CSC Puhti supercomputer. 

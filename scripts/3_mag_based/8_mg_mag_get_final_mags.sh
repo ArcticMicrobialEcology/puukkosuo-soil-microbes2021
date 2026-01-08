@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=100G
-#SBATCH --time 48:00:00
-#SBATCH --account project_2009164
+#SBATCH --time=48:00:00
+#SBATCH --account=project_2009164
 #SBATCH --gres=nvme:50
 
 # define the needed directories

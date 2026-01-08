@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32G
-#SBATCH --time 06:00:00
-#SBATCH --account project_2005827
+#SBATCH --time=06:00:00
+#SBATCH --account=project_2005827
 
 # a script to perform differential abundance and expression analysis using linear mixed effects models for all the taxonomic datas
 

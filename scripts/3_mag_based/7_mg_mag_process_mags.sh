@@ -7,10 +7,10 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=160G
-#SBATCH --time 71:00:00
-#SBATCH --account project_2007998
+#SBATCH --time=71:00:00
+#SBATCH --account=project_2007998
 #SBATCH --gres=nvme:100
-#SBATCH --array 1-2
+#SBATCH --array=1-2
 
 # a small script to process the metabat2 binned and manually refined MAGs and taxononomically annotate them with gtdb-tk
 # requires manual refinement of the discovered MAGs resulting from the previous script to have been performed and 

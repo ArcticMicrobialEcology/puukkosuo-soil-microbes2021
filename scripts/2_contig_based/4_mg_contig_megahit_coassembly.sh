@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=30
 #SBATCH --mem=300G
-#SBATCH --time 71:00:00
-#SBATCH --account project_2005827
+#SBATCH --time=71:00:00
+#SBATCH --account=project_2005827
 
 # a script to perform assembly for the metagenomics reads into contigs using megahit
 # perform coassembly separately for the samples in the grazed upslope and ungrazed downslope conditions / levels of the exclusion treatment

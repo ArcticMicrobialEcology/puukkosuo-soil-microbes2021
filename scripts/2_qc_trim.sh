@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=64G
-#SBATCH --time 71:00:00
-#SBATCH --account project_2009164
+#SBATCH --time=71:00:00
+#SBATCH --account=project_2009164
 
 # a script to QC and trim the raw sequencing files for metagenomics and metatranscriptomics
 

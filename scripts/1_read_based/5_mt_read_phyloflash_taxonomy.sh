@@ -3,13 +3,13 @@
 #SBATCH --error=5_mt_read_phyloflash_%A_%a_err.txt
 #SBATCH --output=5_mt_read_phyloflash_%A_%a_out.txt
 #SBATCH --partition=hugemem
-#SBATCH --nodes 1
-#SBATCH --ntasks 1
-#SBATCH --cpus-per-task 30
-#SBATCH --mem 800G
-#SBATCH --time 71:00:00
-#SBATCH --account project_2009164
-#SBATCH --array 1-36
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=30
+#SBATCH --mem=800G
+#SBATCH --time=71:00:00
+#SBATCH --account=project_2009164
+#SBATCH --array=1-36
 
 # a script to determine the taxonomy in the metagenomics samples using phyloflash
 # running phyloflash for the metatranscriptomics samples with lots of rRNA may take a long time and require a lot of memory

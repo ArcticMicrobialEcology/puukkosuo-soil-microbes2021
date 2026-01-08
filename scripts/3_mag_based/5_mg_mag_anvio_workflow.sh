@@ -7,10 +7,10 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=30
 #SBATCH --mem=240G
-#SBATCH --time 48:00:00
-#SBATCH --account project_2009164
+#SBATCH --time=48:00:00
+#SBATCH --account=project_2009164
 #SBATCH --gres=nvme:100
-#SBATCH --array 1-2
+#SBATCH --array=1-2
 
 # the number of arrays depends on the number of coassemblies
 

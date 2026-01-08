@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16G
-#SBATCH --time 2:00:00
-#SBATCH --account project_2005827
+#SBATCH --time=2:00:00
+#SBATCH --account=project_2005827
 
 # a script to filter all the composed datas for lowly expressed features similarly
 

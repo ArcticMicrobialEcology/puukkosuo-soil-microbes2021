@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=100G
-#SBATCH --time 71:00:00
-#SBATCH --account project_2005827
+#SBATCH --time=71:00:00
+#SBATCH --account=project_2005827
 
 # set up  sample information and compile some installed databases needed by the workflow
 

@@ -3,12 +3,12 @@
 #SBATCH --error=4_mg_read_phyloflash_%A_%a_err.txt
 #SBATCH --output=4_mg_read_phyloflash_%A_%a_out.txt
 #SBATCH --partition=small
-#SBATCH --nodes 1
-#SBATCH --ntasks 1
-#SBATCH --cpus-per-task 20
-#SBATCH --mem 300G
-#SBATCH --time 71:00:00
-#SBATCH --account project_2009164
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=20
+#SBATCH --mem=300G
+#SBATCH --time=71:00:00
+#SBATCH --account=project_2009164
 
 # a script to determine the taxonomy in the metagenomics samples using phyloflash
 

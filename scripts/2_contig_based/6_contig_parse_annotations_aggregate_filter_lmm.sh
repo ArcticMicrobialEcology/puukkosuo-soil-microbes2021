@@ -7,8 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32G
-#SBATCH --time 24:00:00
-#SBATCH --account project_2005827
+#SBATCH --time=24:00:00
+#SBATCH --account=project_2005827
 
 # define the needed directories
 # this is the project root directory

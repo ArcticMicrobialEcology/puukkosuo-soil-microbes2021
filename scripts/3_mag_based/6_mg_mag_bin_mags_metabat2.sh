@@ -7,10 +7,10 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=100G
-#SBATCH --time 12:00:00
-#SBATCH --account project_2007998
+#SBATCH --time=12:00:00
+#SBATCH --account=project_2007998
 #SBATCH --gres=nvme:50
-#SBATCH --array 1-2
+#SBATCH --array=1-2
 
 # a small script to bin metagenome assembled genomes (MAGs) from the contigs from the different assemblies using metabat2 and anvio 
 # (metabat2 needs to be installed and accessible by anvio as a driver)
