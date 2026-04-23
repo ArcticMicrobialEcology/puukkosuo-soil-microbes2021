@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
 #SBATCH --time=12:00:00
-#SBATCH --account=project_2005827
+#SBATCH --account=your_project_account
 
 # a script to align the metagenomic reads to the metabolic marker gene database, combine the results from the paired reads and summarize to marker gene level
 

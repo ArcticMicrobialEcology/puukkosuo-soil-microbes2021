@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
 #SBATCH --time=48:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 
 # a script to summarize the combined KEGG aligment results for the metagenomics data to the KO level
 

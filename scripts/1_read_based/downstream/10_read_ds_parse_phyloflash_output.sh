@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16G
 #SBATCH --time=08:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 
 # a small script to combine and process the phyloflash runs for the different samples into a neat matrix and objects ready for downstream processing
 

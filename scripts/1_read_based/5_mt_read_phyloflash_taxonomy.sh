@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=30
 #SBATCH --mem=800G
 #SBATCH --time=71:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 #SBATCH --array=1-36
 
 # a script to determine the taxonomy in the metagenomics samples using phyloflash

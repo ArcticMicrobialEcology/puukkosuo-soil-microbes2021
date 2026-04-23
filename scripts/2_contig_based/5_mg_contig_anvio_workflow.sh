@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=30
 #SBATCH --mem=320G
 #SBATCH --time=72:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 #SBATCH --gres=nvme:200
 
 # a complete workflow to process the contigs assembled from metagenomics data using anvio

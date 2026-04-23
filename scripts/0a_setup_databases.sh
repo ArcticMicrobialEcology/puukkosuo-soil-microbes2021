@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=15
 #SBATCH --mem=256G
 #SBATCH --time=71:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 #SBATCH --gres=nvme:200
 
 # a script to install some external databases required to run the metagenomics / metatranscriptomics workflow on the CSC Puhti supercomputer. 
@@ -42,7 +42,7 @@ ncbi_database_dir="$database_base_dir/ncbi_protein"
 # this database is received from Jenni Hultman
 # this database is the KEGG prokaryotic gene amino acid sequences translated into an DIAMOND database.
 # this database is required to perfom the analysis for this manuscript - not included in the git repository
-kegg_prok_db="/scratch/project_2009164/KEGG_DB/PROKARYOTES.dmnd"
+kegg_prok_db="$database_base_dir/KEGG_PROK/PROKARYOTES.dmnd"
 
 # this is the directory where the anvio KEGG databases are downloaded to
 kegg_data_dir="$database_base_dir/KEGG"

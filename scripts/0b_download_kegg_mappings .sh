@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32G
 #SBATCH --time=72:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 
 # a script to update KEGG prokaryotic gene KO group mappings - not necessary to run, if some old version exists?
 

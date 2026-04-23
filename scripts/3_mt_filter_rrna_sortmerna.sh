@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=320G
 #SBATCH --time=71:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 #SBATCH --array=1-36
 
 # a script to trim the metatranscriptomic reads for ribosomal RNA (rRNA)

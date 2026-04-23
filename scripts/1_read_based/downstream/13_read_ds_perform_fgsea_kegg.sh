@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16G
 #SBATCH --time=02:00:00
-#SBATCH --account=project_2005827
+#SBATCH --account=your_project_account
 
 # a script to perform gene set enrichment analysis (gsea) for the LMM analysis results for the KEGG datas
 

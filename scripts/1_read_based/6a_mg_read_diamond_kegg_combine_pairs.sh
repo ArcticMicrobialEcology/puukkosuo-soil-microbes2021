@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
 #SBATCH --time=08:00:00
-#SBATCH --account=project_2005827
+#SBATCH --account=your_project_account
 #SBATCH --array=1-36
 
 # a script to align the metagenomic reads to the KEGG prokaryotic database and combine the results from the paired reads

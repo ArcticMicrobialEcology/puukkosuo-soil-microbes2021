@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32G
 #SBATCH --time=24:00:00
-#SBATCH --account=project_2005827
+#SBATCH --account=your_project_account
 
 # define the needed directories
 # this is the project root directory under which all the subdirectories, results etc. are created.

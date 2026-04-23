@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16G
 #SBATCH --time=4:00:00
-#SBATCH --account=project_2005827
+#SBATCH --account=your_project_account
 
 # a script to estimate KEGG module completeness for each sample seperately in the KEGG KO datasets 
 
