@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=R_perform_fgsea_kegg
-#SBATCH --error=13_read_ds_gsea_kegg_%A_%a_err.txt
-#SBATCH --output=13_read_ds_gsea_kegg_%A_%a_out.txt
+#SBATCH --error=13_read_ds_gsea_kegg_%A_err.txt
+#SBATCH --output=13_read_ds_gsea_kegg_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16G
-#SBATCH --time=12:00:00
+#SBATCH --time=02:00:00
 #SBATCH --account=project_2005827
 
 # a script to perform gene set enrichment analysis (gsea) for the LMM analysis results for the KEGG datas

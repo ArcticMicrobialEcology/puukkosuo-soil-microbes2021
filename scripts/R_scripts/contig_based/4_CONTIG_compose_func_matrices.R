@@ -1,14 +1,8 @@
 args <- commandArgs(trailingOnly = TRUE)
 
-# input 1 needs to be the RData file for the kegg read based metagenomics normalized datas 
-# input 2 needs to be the RData file for the kegg read based metranscriptomics normalized datas
-# input 3 needs to be the downstream directory with the contig gene and transcript counts & annotations processed with a previous script
-
-# e.g. 
-# args <- character(3)
-# args[1] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/metagenomics/kegg_diamond/Matrices_For_Downstream.RData"
-# args[2] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/metatranscriptomics/kegg_diamond/Matrices_For_Downstream.RData"
-# args[3] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/manu_rerun/downstream/contig_based"
+# the first input parameter needs to be the RData file for the kegg read based metagenomics normalized datas 
+# the second input parameter needs to be the RData file for the kegg read based metranscriptomics normalized datas
+# the third input parameter needs to be the downstream directory with the contig gene and transcript counts & annotations processed with a previous script
 
 # a small script to aggregate gene&transcript counts to the metabolic marker genes 
 keep_items <- ls()

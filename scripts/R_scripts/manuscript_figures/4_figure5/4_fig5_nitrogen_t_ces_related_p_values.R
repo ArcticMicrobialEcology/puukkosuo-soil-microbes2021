@@ -55,6 +55,9 @@ data <- metmark_tpm_data
 
 # nirK+nirS/nosZ)
 nit_ratio2 <- (as.numeric(data["NirK",]) +  as.numeric(data["NirS",])) / as.numeric(data["NosZ",])
+# log transform
+nit_ratio2 <- log(nit_ratio2)
+
 temp_data <- cbind(nit_ratio2, meta_use)
 colnames(temp_data) <- c("nit_ratio2", colnames(meta_use))
 temp_data_tces <- temp_data[which(temp_data$veg_clusters=="t_ces"),]
@@ -62,7 +65,7 @@ temp_data_tces <- temp_data[which(temp_data$veg_clusters=="t_ces"),]
 # wilcoxon test
 p_val_t_ces_nit_ratio2_mg_wilcox <- wilcox.test(x = as.numeric(temp_data_tces$nit_ratio2[which(temp_data_tces$grazing=="grazed")]), y=as.numeric(temp_data_tces$nit_ratio2[which(temp_data_tces$grazing=="ungrazed")]),
                                                 alternative = "two.sided")
-# p-value = 0.4442
+# p-value = 0.494
 
 # MT
 load(paste(project_root, "/metatranscriptomics/metmarkdb_diamond/Matrices_For_Downstream.RData", sep = ""))
@@ -70,6 +73,9 @@ data <- metmark_tpm_data
 
 # nirK+nirS/nosZ)
 nit_ratio2 <- (as.numeric(data["NirK",]) +  as.numeric(data["NirS",])) / as.numeric(data["NosZ",])
+# log transform
+nit_ratio2 <- log(nit_ratio2)
+
 temp_data <- cbind(nit_ratio2, meta_use)
 colnames(temp_data) <- c("nit_ratio2", colnames(meta_use))
 temp_data_tces <- temp_data[which(temp_data$veg_clusters=="t_ces"),]
@@ -77,7 +83,7 @@ temp_data_tces <- temp_data[which(temp_data$veg_clusters=="t_ces"),]
 # wilcoxon test
 p_val_t_ces_nit_ratio2_mt_wilcox <- wilcox.test(x = as.numeric(temp_data_tces$nit_ratio2[which(temp_data_tces$grazing=="grazed")]), y=as.numeric(temp_data_tces$nit_ratio2[which(temp_data_tces$grazing=="ungrazed")]),
                                                 alternative = "two.sided")
-# p-value = 0.06218
+# p-value = 0.1093
 
 # save p-values
 ses_info <- sessionInfo()
@@ -86,7 +92,7 @@ ses_info <- sessionInfo()
 setwd(paste(project_root, "/downstream/manuscript_figures/figure5", sep = ""))
 
 save(p_val_t_ces_nitrate_wilcox, p_val_t_ces_total_nit_wilcox,
-     p_val_t_ces_nit_ratio2_mg_wilcox, p_val_t_ces_nit_ratio2_mt_wilcox, ses_info, file = "Nitrogen_T_Ces_P_values.RData")
+     p_val_t_ces_nit_ratio2_mg_wilcox, p_val_t_ces_nit_ratio2_mt_wilcox, ses_info, file = "Nitrogen_T_Ces_P_values_Ln_Ratios.RData")
 
 # print out session info
 print("SessionInfo:")

@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=R_estimate_kegg_module_completeness
-#SBATCH --error=14_read_ds_kegg_module_completeness_%A_%a_err.txt
-#SBATCH --output=14_read_ds_kegg_module_completeness_%A_%a_out.txt
+#SBATCH --error=14_read_ds_kegg_module_completeness_%A_err.txt
+#SBATCH --output=14_read_ds_kegg_module_completeness_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -68,7 +68,7 @@ module load biopythontools/11.3.0_3.10.6
 module load hmmer/3.4
 
 # go trough all the subdirectories
-cd "$base_dir/kegg_mg_read"
+cd "$base_dir/kegg_mg"
 DIRS=(*/)
 for i in "${!DIRS[@]}"; do
 	cd "${DIRS[$i]}"
@@ -80,7 +80,7 @@ echo "*******************************************************"
 
 # metatranscriptomics
 echo "[$(date -Is)] Estimating KEGG module completeness in the different samples in metatranscriptomics data..."
-cd "$base_dir/kegg_mt_read"
+cd "$base_dir/kegg_mt"
 DIRS=(*/)
 for i in "${!DIRS[@]}"; do
 	cd "${DIRS[$i]}"

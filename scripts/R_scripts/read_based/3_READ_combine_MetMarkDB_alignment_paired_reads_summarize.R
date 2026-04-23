@@ -115,10 +115,10 @@ for(f in 1:length(all_files)){
   # filter the marker genes with the limits suggested by Dr Pok Man Leung. The DIAMOND aligment should be performed also with the
   # suggested parameters (now applied) for this filtering to be effectiv.
   # for reads with 130 - 150 bps retain hits with over 80% query coverage. Rare metabolic marker genes should still be captured when the number of reads is over 5M 
-
+  
   # a marine microbiome study using the database with the same filtering limits
   # https://doi.org/10.1038/s41564-023-01322-0
-
+  
   # reference for the database
   # Leung, Pok Man; Greening, Chris (2021). Compiled Greening lab metabolic marker gene databases. Monash University. Online resource. https://doi.org/10.26180/14431208.v1
   # https://doi.org/10.26180/14431208.v1
@@ -145,8 +145,8 @@ for(f in 1:length(all_files)){
   all_rem_locs <- numeric()
   for(i in 1:length(marker_genes)){
     
-    # grep all the hits for the specific genes
-    locs_int <- grep(marker_genes[i], r1_func$stitle, fixed = T)
+    # get all the hits for the specific genes
+    locs_int <- which(r1_func$gene%in%marker_genes[i])
     
     if(length(locs_int)>0){
       temp <- r1_func[locs_int,]
@@ -205,8 +205,8 @@ for(f in 1:length(all_files)){
   all_rem_locs <- numeric()
   for(i in 1:length(marker_genes)){
     
-    # grep all the hits for the specific genes
-    locs_int <- grep(marker_genes[i], r2_func$stitle, fixed = T)
+    # get all the hits for the specific genes
+    locs_int <- which(r2_func$gene%in%marker_genes[i])
     
     if(length(locs_int)>0){
       temp <- r2_func[locs_int,]
@@ -216,7 +216,7 @@ for(f in 1:length(all_files)){
       
       if(length(rem_locs)>0){
         
-        if(i==29){ # NiFe-, copiend from their scripts, further filter Group4 hits differently
+        if(i==29){ # NiFe-, copied from their scripts, further filter Group4 hits differently
           temp2 <- temp[-rem_locs,]
           group4_locs <- grep("Group 4", temp2$stitle, fixed = T)
           
@@ -265,14 +265,14 @@ for(f in 1:length(all_files)){
   rownames(r1_func_filtered) <- r1_func_filtered$read_location
   rownames(r2_func_filtered) <- r2_func_filtered$read_location
   
-  # read pairs for which hits have been found in both read pairs of the same read
-  r1_func_int <- r1_func_filtered[int_reads,]
-  r2_func_int <- r2_func_filtered[int_reads,]
+  # read pairs for which hits have been found in both mate pairs of the same read
+  r1_func_int <- r1_func_filtered[int_reads, , drop = FALSE]
+  r2_func_int <- r2_func_filtered[int_reads, , drop = FALSE]
   
   # unique read pairs, for which there are only hits in R2 - always keep these
   r2_uniq <- r2_func_filtered[-which(r2_func_filtered$read_location%in%int_reads),]
   
-  # order based on read pair location for R1 and R2 - so in the same order for both reads
+  # order based on read pair location for R1 and R2 - so in the same order for both mate pairs
   r1_func_int <- r1_func_int[order(r1_func_int$read_location),]
   r2_func_int <- r2_func_int[order(r2_func_int$read_location),]
   
@@ -285,18 +285,77 @@ for(f in 1:length(all_files)){
   # remove these duplicated gene hits for R2 and keep only those truly different hits
   r2_keep <- r2_func_int[-locs_rem,]
   
+  # examine these hits closer and choose the best hit
+  r1_keep <- r1_func_int[rownames(r2_keep), , drop = FALSE]
+  all_dropped_pairs <- character(0)
+  
+  # if there is a bitscore difference |>15|, keep that mate pair hit
+  # no functional gene overlap -> likely ambiguity; rescue only if bitscore difference is large.
+  # resolve which pair to keep
+  b_diff <- r1_keep$bitscore - r2_keep$bitscore
+  pair_keep <- rep("", nrow(r1_keep))
+  pair_keep[which(b_diff>15)] <- "R1"
+  pair_keep[which(b_diff<(-15))] <- "R2"
+  
+  # drop ambiguous paris
+  unresolved_pairs <- which(pair_keep=="")
+  pair_keep[unresolved_pairs] <- "drop"
+  drop_pair <- logical(nrow(r1_keep))
+  drop_pair[which(pair_keep=="drop")] <- TRUE
+  
+  if(any(drop_pair)){
+    all_dropped_pairs <- c(all_dropped_pairs, r1_keep$read_location[which(drop_pair)])
+    r1_keep <- r1_keep[-which(drop_pair),]
+    r2_keep <- r2_keep[-which(drop_pair),]
+    pair_keep <- pair_keep[-which(drop_pair)]
+  }
+  
+  # keep the better annotations for those reads with clearly better bitscore for one mate pair
+  if(any(pair_keep=="R2")){
+    r2_keep <- r2_keep[which(pair_keep=="R2"), , drop = FALSE]
+  }
+  
   if(nrow(r2_keep)>0){
     r2_func_filt <- rbind(r2_uniq, r2_keep)
   }else{
     r2_func_filt <- r2_uniq
   }
-  # here we have the R2 hits with a different gene or not hit for the R1 read. So then all gene hits, regardless of did it originate from R1, R2 or both, are counted only once.
   
-  print(paste("Preserved all of R1 hits with:", nrow(r1_func_filtered), "hits"))
+  # remove ambiguous hits from R1
+  if(length(all_dropped_pairs)>0){
+    if(any(r1_func_filtered$read_location%in%all_dropped_pairs)){
+      r1_func_filtered <- r1_func_filtered[-which(r1_func_filtered$read_location%in%all_dropped_pairs),]
+    }
+    print(paste("Dropped:", length(all_dropped_pairs), " ambiguos hits with closely scored and differing annotations in R1 and R2."))
+    print("****************************************")
+    
+  }
+  
+  # remove R1 hits for pairs where R2 was chosen (avoid double counting)
+  if(nrow(r2_keep)>0){
+    r1_func_filtered <- r1_func_filtered[-which(r1_func_filtered$read_location%in%r2_keep$read_location),]
+  }  
+  
+  print(paste("Preserved R1 hits with:", nrow(r1_func_filtered), "hits"))
+  print("****************************************")
+  
   print("Number of R2 hits that were not found with paired reads in R1:")
+  print(nrow(r2_uniq))
+  print("Making a proportion of all R2 filtered hits:")
+  print(nrow(r2_uniq)/nrow(r2_func_filtered))
+  print("****************************************")
+  
+  print("Number of R2 hits with better quality hits to different protein than the corresponding R1 mates:")
+  print(nrow(r2_keep))
+  print("Making a proportion of all R2 filtered hits:")
+  print(nrow(r2_keep)/nrow(r2_func_filtered))
+  print("****************************************")
+  
+  print("Number of the total preseved R2 hits with either no hits for the corresponding R1 or a better quality hit to different protein than the corresponding R1:")
   print(nrow(r2_func_filt))
   print("Making a proportion of all R2 filtered hits:")
   print(nrow(r2_func_filt)/nrow(r2_func_filtered))
+  print("****************************************")
   
   # add information for each hit from which read it came from
   r1_func_filtered <- cbind(r1_func_filtered, rep("R1",nrow(r1_func_filtered)))

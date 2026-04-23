@@ -104,8 +104,8 @@ silva_gtdb_map <- tribble(
 # transform into data.frame for easier use later
 silva_gtdb_map <- data.frame(silva_gtdb_map, stringsAsFactors = F, check.names = F)
 
-
 # change directory into the plotting directory - needs to exist
+dir.create(paste(project_root, "/downstream/manuscript_figures/figure3", sep = ""), recursive = TRUE)
 setwd(paste(project_root, "/downstream/manuscript_figures/figure3", sep = ""))
 save(silva_gtdb_map, file = "Silva_GTDB_phylum_mapping.RData")
 

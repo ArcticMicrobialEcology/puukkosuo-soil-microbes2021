@@ -47,7 +47,7 @@ for(i in 1:length(all_refined_bins)){
   coassembly_dir <- rev(rev(coassembly_dir)[-c(1:4)])
   coassembly_dir <- paste(coassembly_dir, collapse = "/")
   coassembly_files <- list.files(path = coassembly_dir)
-  contig_db_file <- coassembly_files[grep("_contigs.db",coassembly_files)]
+  contig_db_file <- coassembly_files[grep("_contigs.db",coassembly_files, fixed = TRUE)]
   coassembly_dir <- paste(coassembly_dir, "/", contig_db_file, sep = "")
   internal_genomes[ind:(ind+length(all_refined_bins[[i]])-1),5] <- rep(coassembly_dir, length(all_refined_bins[[i]]))
   
@@ -62,3 +62,7 @@ colnames(internal_genomes) <- c("name","bin_id","collection_id","profile_db_path
 # save the internal genomes list here
 setwd(args[1])
 write.table(x = internal_genomes, file = "internal_genomes_refined_MAGs.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
+
+# print out session info
+print("SessionInfo:")
+sessionInfo()

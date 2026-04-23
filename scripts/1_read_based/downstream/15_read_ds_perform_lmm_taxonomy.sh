@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=R_perform_lmm_taxonomy
-#SBATCH --error=15_read_ds_lmm_taxonomy_%A_%a_err.txt
-#SBATCH --output=15_read_ds_lmm_taxonomy_%A_%a_out.txt
+#SBATCH --error=15_read_ds_lmm_taxonomy_%A_err.txt
+#SBATCH --output=15_read_ds_lmm_taxonomy_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

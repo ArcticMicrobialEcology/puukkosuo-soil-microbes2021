@@ -1,15 +1,8 @@
 args <- commandArgs(trailingOnly = TRUE)
 # first input parameter needs to be the metadata directory for the study. The metadata directory
 # needs to contain the essential information files, such as the Oulanka_ACAP_study_site.xlsx, Puukkosuo_vegetatation_clusters.xlsx
-
 # the second input parameter needs to be the metagenomics raw data directory - from which the sample names are extracted
 # the third input parameter needs to be the metatranscriptomics raw data directory - from which the sample names are extracted
-
-# e.g. 
-# args <- character(3)
-# args[1] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/metadata"
-# args[2] <- "/scratch/project_2009164/2_OULANKA/1_RAW/metagenomics"
-# args[3] <- "/scratch/project_2009164/2_OULANKA/1_RAW/metatranscriptomics"
 
 # a setup script to setup sample names in the experimental conditions etc. for the analysis. 
 # modify as needed

@@ -5,9 +5,9 @@
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
-#SBATCH --time=71:00:00
+#SBATCH --time=08:00:00
 #SBATCH --account=project_2009164
 #SBATCH --array=1-36
 
@@ -46,7 +46,7 @@ mt_sample_name_file="$project_root/metadata/MT_Sample_Names.txt"
 # define the sample to be processed, run as an slurm array job
 SAMPLE="$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$mt_sample_name_file")"
 
-# make the needed directories
+# make the result directories
 mkdir -p "$mt_main_dir/kegg_diamond/raw"
 cd "$mt_main_dir/kegg_diamond/raw"
 

@@ -3,12 +3,6 @@ args <- commandArgs(trailingOnly = TRUE)
 # the second parameter needs to be the directory for the KEGG alignment hits combined for the paired reads and aggregated to the gene level from the same script.
 # the third parameter needs to be the result directory (needs to exist) where the KO summarized KEGG alignment result matrices are saved.
 
-# e.g. 
-# args <- character(3)
-# args[1] <- "/scratch/project_2007998/AGROBIO_Tommi/metagenomics/kegg_diamond/sample_details"
-# args[2] <- "/scratch/project_2007998/AGROBIO_Tommi/metagenomics/kegg_diamond/combined_hits_gene_aggregated"
-# args[3] <- "/scratch/project_2007998/AGROBIO_Tommi/metagenomics/kegg_diamond"
-
 # this is a small script to summarize the the KEGG alignment hits combined for the paired reads to KO level and transform into matrices for downstream processing.
 
 # get sample specific total counts and total rpks, calculated based on KEGG alignments

@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=R_perform_lmm_functional
-#SBATCH --error=12_read_ds_lmm_func_%A_%a_err.txt
-#SBATCH --output=12_read_ds_lmm_func_%A_%a_out.txt
+#SBATCH --error=12_read_ds_lmm_func_%A_err.txt
+#SBATCH --output=12_read_ds_lmm_func_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=16G
-#SBATCH --time=48:00:00
+#SBATCH --time=02:00:00
 #SBATCH --account=project_2005827
 
 # a script to perform differential abundance and expression analysis using linear mixed effects models for all the functional datas

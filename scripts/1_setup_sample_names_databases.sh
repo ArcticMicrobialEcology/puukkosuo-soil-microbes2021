@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=setup_metadata_databases
-#SBATCH --error=1_setup_metadata_databases_%A_%a_err.txt
-#SBATCH --output=1_setup_metadata_databases_%A_%a_out.txt
+#SBATCH --error=1_setup_metadata_databases_%A_err.txt
+#SBATCH --output=1_setup_metadata_databases_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

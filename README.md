@@ -4,7 +4,7 @@
 
 **Note:** This repository contains analysis codes and scripts for the manuscript:
 
-*"Soil microbiome structure and function reflect environmental gradients and reindeer exclusion in a northern peatland (2025)"*.
+*"Soil microbiome reflect enviromental variation rather than reindeer presence in a northern fen"*.
 
 ## Overview
 This repository contains the analysis scripts for the workflow used to process,

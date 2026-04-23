@@ -4,12 +4,6 @@ args <- commandArgs(trailingOnly = TRUE)
 # the second input parameter needs to be the directory for metatranscriptomics with all the result subdirectories
 # the third input parameter needs to be the preprocessed metadata file
 
-# e.g.
-# args <- character(3)
-# args[1] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/manu_rerun/downstream/contig_based/metagenomics"
-# args[2] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/manu_rerun/downstream/contig_based/metatranscriptomics"
-# args[3] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/manu_rerun/metadata/Study_Metadata.RData"
-
 load(as.character(args[3]))
 rownames(metadata) <- metadata$`Short code`
 
@@ -55,14 +49,11 @@ for(om in 1:2){
   # filter tpm data and rpm data based on rpm thres
   loc_min_sample <- which.min(count_scaling_factors)
   locs_limit_vals <- which(hits_samples_count[,loc_min_sample]==min_count)
-  if(length(locs_limit_vals)<1){
-    cand_vals <-  hits_samples_count[,loc_min_sample]
-    
-    # don't accept lower counts
-    cand_vals[which(cand_vals<min_count)] <- NA
-    
-    # pick a new threshold
-    locs_limit_vals <- which.min(abs(cand_vals - min_count))
+  if(length(locs_limit_vals)==0){
+    while(length(locs_limit_vals)==0){
+      min_count <- min_count + 1
+      locs_limit_vals <- which(hits_samples_count[,loc_min_sample]==min_count)
+    }
   }
   
   # use the rpm data for filtering, where the counts for features have been adjuted to the library size

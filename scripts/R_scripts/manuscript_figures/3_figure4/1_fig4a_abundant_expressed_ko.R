@@ -59,6 +59,7 @@ feature_means_prop_mt <- rowMeans(data_prop_mt, na.rm = T)
 feature_means_prop_mt <- feature_means_prop_mt[order(feature_means_prop_mt, decreasing = T)]
 
 # change directory into the plotting directory - needs to exist
+dir.create(paste(project_root, "/downstream/manuscript_figures/figure4", sep = ""), recursive=T)
 setwd(paste(project_root, "/downstream/manuscript_figures/figure4", sep = ""))
 
 # use the same range for both MG and MT

@@ -4,12 +4,6 @@ args <- commandArgs(trailingOnly = TRUE)
 # the second input needs to be the the contig analysis main directory
 # the third input parameter needs to be the anvio_project_name for the analysis
 
-# e.g. 
-# args <- character(3)
-# args[1] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/manu_rerun/metagenomics/contig_based/prodigal_genes"
-# args[2] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/manu_rerun/downstream/contig_based"
-# args[3] <- "Oulanka_contig_based"
-
 # a small script to parse all the functional and taxonomic annotations for the contig genes, get gene and transcript counts and link the annotations to the counts
 
 # load libraries

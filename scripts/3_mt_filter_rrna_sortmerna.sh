@@ -58,6 +58,27 @@ sortmerna -ref "$sortmerna_db" \
 --fastx --paired_in --out2 --threads "$SLURM_CPUS_PER_TASK"
 echo "*******************************************************"
 echo "*******************************************************"
+
+# perform fastqc for the rRNA filtered fastq files
+module load biokit/11.3.0 # fastqc 0.11.9 is used
+
+echo "[$(date -Is)] Running Fastqc and Multiqc for the metatranscriptomics rRNA filtered fastq files..."
+
+# create the directory
+mkdir -p "$mt_main_dir/fastqc/cutadapt_trimmed/rrna_filtered" 
+cd "$mt_main_dir/rrna_filtered_trimmed_fastq"
+for j in * 
+do
+	fastqc --noextract -t "$SLURM_CPUS_PER_TASK" -o "$mt_main_dir/fastqc/cutadapt_trimmed/rrna_filtered/" "$j"
+done
+
+# perform multiqc for the fastqc results
+module purge
+module load multiqc/1.19
+cd "$mt_main_dir/fastqc/cutadapt_trimmed/rrna_filtered"
+multiqc .
+echo "*******************************************************"
+echo "*******************************************************"
 echo "[$(date -Is)] All done. Bye
 	
 

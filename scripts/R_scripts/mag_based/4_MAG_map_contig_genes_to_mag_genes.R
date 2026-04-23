@@ -100,4 +100,5 @@ setwd(as.character(args[3]))
 save(mapping_files, coassembly_names, file = "Gene_Contig_Mapping_Sep_Coassem_Conc_Coassem.RData")
 
 # print out session info
+print("SessionInfo:")
 sessionInfo()

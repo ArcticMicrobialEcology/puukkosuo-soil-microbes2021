@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=process_contig_data
-#SBATCH --error=6_contig_parse_count_aggregate_filter_lmm_%A_%a_err.txt
-#SBATCH --output=6_contig_parse_count_aggregate_filter_lmm_%A_%a_out.txt
+#SBATCH --error=6_contig_parse_count_aggregate_filter_lmm_%A_err.txt
+#SBATCH --output=6_contig_parse_count_aggregate_filter_lmm_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

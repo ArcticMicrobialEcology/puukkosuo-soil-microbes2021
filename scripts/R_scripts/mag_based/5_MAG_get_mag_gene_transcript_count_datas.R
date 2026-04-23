@@ -259,3 +259,7 @@ names(bin_mt_datas) <- names(bin_annotations)
 setwd(as.character(args[3]))
 save(bin_mg_datas, file = "MG_Summarized_Count_Datas_For_All_Bins.RData")
 save(bin_mt_datas, file = "MT_Summarized_Count_Datas_For_All_Bins.RData")
+
+# print out session info
+print("SessionInfo:")
+sessionInfo()

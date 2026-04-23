@@ -1,21 +1,9 @@
 args <- commandArgs(trailingOnly = TRUE)
 # the first parameter needs to be the directory for the custom R package installations where the taxonomizr package is installed
-
 # the second parameter needs to be downloaded metabolic marker gene database fasta
-
 # the third parameter needs to be the ncbi database file, where the ncbi protein to taxon mapping database has been downloaded and installed
-
 # the fourth parameter needs to be the file for some manually observed additional eukaryotic proteins in the database
-
 # the fifth parameter needs to be the output directory where the filtered fasta file and the relevant taxonomy are saved
-
-# e.g.
-# args <- character(5)
-# args[1] <- "/projappl/project_2009164/project_rpackages_430"
-# args[2] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/databases/metmarkdb/Funcgenes_51_Dec2021.fasta"
-# args[3] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/databases/ncbi_protein/accessionTaxa.sql"
-# args[4] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/databases/metmarkdb/Some_manually_observed_eukaryotic_proteins.txt"
-# args[5] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/databases/metmarkdb"
 
 # load libraries
 .libPaths(c(as.character(args[1]), .libPaths()))

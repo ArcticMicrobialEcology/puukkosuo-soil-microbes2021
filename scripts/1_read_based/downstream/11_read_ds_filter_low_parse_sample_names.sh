@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=R_filter_datas
-#SBATCH --error=11_read_ds_filter_datas_%A_%a_err.txt
-#SBATCH --output=11_read_ds_filter_datas_%A_%a_out.txt
+#SBATCH --error=11_read_ds_filter_datas_%A_err.txt
+#SBATCH --output=11_read_ds_filter_datas_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

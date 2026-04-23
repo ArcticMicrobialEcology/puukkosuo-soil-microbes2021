@@ -173,5 +173,6 @@ setwd(as.character(args[2]))
 save(dereplication_report, gtdbtk_report, gtdbtk_reports, markergene_copies_clusters,
      file="Final_MAG_Taxonomy_Mark_Gene.RData")
 
-# print - out session info
+# print out session info
+print("SessionInfo:")
 sessionInfo()

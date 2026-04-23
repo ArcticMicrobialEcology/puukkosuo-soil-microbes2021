@@ -7,7 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=100G
-#SBATCH --time=12:00:00
+#SBATCH --time=04:00:00
 #SBATCH --account=project_2007998
 #SBATCH --gres=nvme:50
 #SBATCH --array=1-2

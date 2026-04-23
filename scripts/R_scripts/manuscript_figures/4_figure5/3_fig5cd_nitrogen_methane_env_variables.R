@@ -149,10 +149,10 @@ model_comparison_sig <- model_comparison$`Pr(>Chisq)`[2]
 # save the the best model
 if(model_comparison_sig<0.05){
   mod_nitrate_nitrite <- mod_nitrate_nitrite_complex
-  print("Best nitrate+nitrite flux model is complex")
+  print("Best nitrate+nitrite model is complex")
 }else{
   mod_nitrate_nitrite <- mod_nitrate_nitrite_simple
-  print("Best nitrate+nitrite flux model is simple")
+  print("Best nitrate+nitrite model is simple")
 }
 # best model is simple
 
@@ -176,10 +176,10 @@ model_comparison_sig <- model_comparison$`Pr(>Chisq)`[2]
 # save the the best model
 if(model_comparison_sig<0.05){
   mod_total_nit <- mod_total_nit_complex
-  print("Best total nitrogen flux model is complex")
+  print("Best total nitrogen model is complex")
 }else{
   mod_total_nit <- mod_total_nit_simple
-  print("Best total nitrogen flux model is simple")
+  print("Best total nitrogen model is simple")
 }
 # best model is simple
 

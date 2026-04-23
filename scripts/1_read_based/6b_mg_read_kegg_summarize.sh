@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=R_summarize_kegg
-#SBATCH --error=6b_mg_read_R_summarize_kegg_%A_%a_err.txt
-#SBATCH --output=6b_mg_read_R_summarize_kegg_%A_%a_out.txt
+#SBATCH --error=6b_mg_read_R_summarize_kegg_%A_err.txt
+#SBATCH --output=6b_mg_read_R_summarize_kegg_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

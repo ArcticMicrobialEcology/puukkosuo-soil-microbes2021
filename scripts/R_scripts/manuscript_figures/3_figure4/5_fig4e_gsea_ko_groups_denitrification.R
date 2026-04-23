@@ -85,7 +85,15 @@ setwd(paste(project_root, "/downstream/manuscript_figures/figure4", sep = ""))
   for(feat in 1:nrow(data_temp)){
     vals <- data_temp[feat,]
     g <- meta_use$grazing
-    boxplot(vals~g, col=c(col_ungrazed, col_grazed), add = T, at=c(ind1, ind2), xlab = "", xaxt="n", ylab = "", yaxt="n", frame=FALSE)
+    boxplot(vals~g, col=c(col_ungrazed, col_grazed), add = T, outline=FALSE, at=c(ind1, ind2), xlab = "", xaxt="n", ylab = "", yaxt="n", frame=FALSE)
+    
+    for(lev in levels(g)){
+      if(lev=="ungrazed"){
+        points(x = jitter(rep(ind1,length(which(g==lev))), factor = 0.5), y=vals[which(g==lev)], pch=19, cex=0.7)
+      }else if(lev=="grazed"){
+        points(x = jitter(rep(ind2,length(which(g==lev))), factor = 0.5), y=vals[which(g==lev)], pch=19, cex=0.7)
+      }
+    }
     
     ind1 <- ind1 + 3
     ind2 <- ind2 + 3

@@ -1,19 +1,20 @@
 # a small script to perform the Multiomics factor analysis (MOFA) for the Puukkosuo microbial data
-# this script is run on a personal computer instead of CSC Puhti 
+# this script is run on a personal computer instead of CSC Puhti Supercomputer
 
 # requires a working python 3.11 installation on the computer and an installation of MOFA
 # also requires certain R packages, such as MOFA2 and reticulate (to connect R to python), see below for the specific packages
-# the analysis is run on R version 4.4.1
+# the analysis is run on R version 4.4.1 (4.5.2 for the review)
 # mofapy version is 0.7.1
 
 # define the version of python used for MOFA
-
+# load reticulate
 library(reticulate)
 
 # python directory, e.g. "C:/Program Files/Python311"
 use_python(python = "")
+py_config()
 
-# load needed libraries
+# load the other needed libraries
 library(MOFA2)
 library(ggplot2)
 library(graphics)
@@ -209,7 +210,7 @@ metadata$sample <- rownames(metadata)
 samples_metadata(trained_mofa_slow) <- metadata
 
 # plot explained variance
-plot_variance_explained(trained_mofa_slow, max_r2=50, las=2)
+plot_variance_explained(trained_mofa_slow, max_r2=50)
 plot_variance_explained(trained_mofa_slow, max_r2=50, plot_total = TRUE)
 
 # correlation between factors
@@ -287,7 +288,7 @@ for(i in 1:ncol(factor_values)){
   dev.off()
 }
 
-# predict the exclusion treatment (grazing here), snow treatment and vegetation cluster status for each sample using MOFA and random forest
+# predict the exclusion treatment (grazing here), snow treatment and vegetation cluster status for each sample using MOFA factors and random forest
 
 # pick the relevant metadata
 meta_use <- metadata[,c("Grazing","Treatment","Veg_clusters")]
@@ -303,6 +304,7 @@ meta_predicted <- data.frame(matrix(nrow = nrow(meta_use), ncol = ncol(meta_use)
 rownames(meta_predicted) <- rownames(meta_use)
 colnames(meta_predicted) <- colnames(meta_use)
 
+# perform leave-one out cross-validation, use n-1 samples for training and predict for the out-sample
 for(i in 1:nrow(meta_use)){
   for(j in 1:ncol(meta_use)){
     

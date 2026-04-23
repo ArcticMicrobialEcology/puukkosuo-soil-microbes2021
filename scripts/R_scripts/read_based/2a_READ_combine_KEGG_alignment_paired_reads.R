@@ -5,14 +5,6 @@ args <- commandArgs(trailingOnly = TRUE)
 # currently the default limits: e-value 10^-6 and bitscore 50, change if needed
 # fifth parameter needs to be the output directory (needs to exist) where the subdirectories for the results are created (if they don't exist) and results are saved
 
-# e.g.
-# args <- character(6)
-# args[1] <- "A039-MB-M-TGACGGCCGT-AGTCAACCAT-Velmala-0121-A_kegg_R1.txt"
-# args[2] <- "A039-MB-M-TGACGGCCGT-AGTCAACCAT-Velmala-0121-A_kegg_R2.txt"
-# args[3] <- "/scratch/project_2007998/AGROBIO_Tommi/metadata/2025_01_21_KO_Mapping_Genes_Prokaryotes.txt"
-# args[4] <- "0"
-# args[5] <- "/scratch/project_2007998/AGROBIO_Tommi/metagenomics/kegg_diamond"
-
 # a script to combine the results of the DIAMOND blastp KEGG homology search for the read pairs of paired reads
 
 # load libraries
@@ -63,100 +55,190 @@ r2_func <- cbind(r2_genes, r2_func)
 colnames(r1_func)[1:2] <- c("gene", "read_location")
 colnames(r2_func)[1:2] <- c("gene", "read_location")
 
-# combine the hits from paired reads
-print("Combining the hits from the paired reads")
-
-# reads from the same location - paired reads
-int_reads <- intersect(r1_func$read_location, r2_func$read_location)
+# set read names as rownames for easier parsing
 rownames(r1_func) <- r1_func$read_location
 rownames(r2_func) <- r2_func$read_location
-
-# pick the paired reads
-r1_func_int <- r1_func[int_reads,]
-r2_func_int <- r2_func[int_reads,]
-
-# R2 reads not having a hit for the R1 pair
-r2_uniq <- r2_func[-which(r2_func$read_location%in%int_reads),]
-
-# put reads from the same location for R1 and R2 in the same order
-r1_func_int <- r1_func_int[order(r1_func_int$read_location),]
-r2_func_int <- r2_func_int[order(r2_func_int$read_location),]
-
-# this works, because there is only one (best) hit for each read and they are in the same order. So works with only one hit / read. 
-locs_rem <- which(r2_func_int$gene==r1_func_int$gene)
-
-# remove these duplicated gene hits as we don't want to count them
-if(length(locs_rem)>0){
-  r1_keep <- r1_func_int[-locs_rem,]
-  r2_keep <- r2_func_int[-locs_rem,]
-}else{
-  r1_keep <- r1_func_int
-  r2_keep <- r2_func_int
-}
-
-# now further filter the R2 reads to contain only those hits with KEGG or KO annotation differing from the KO annotation of the corresponding R1 pair
 
 # read-in the mapping between KEGG genes and KO groups
 PROKARYOTES.DAT <- read.csv(args[3], sep = "\t", header = F, quote = "", fill = F, stringsAsFactors = F)
 colnames(PROKARYOTES.DAT)=c("gene", "KO")
 
-# map the genes to ko groups in the filtered reads
+# map the genes to KO groups
 # assign KOs, get results in a list as genes may have multiple KO annotations
 
 # R1
-kos1 <- matches(r1_keep$gene, PROKARYOTES.DAT$gene, all.x = TRUE, all.y = FALSE, list = TRUE, indexes = TRUE)
+kos1 <- matches(r1_func$gene, PROKARYOTES.DAT$gene, all.x = TRUE, all.y = FALSE, list = TRUE, indexes = TRUE)
 kos1 <- lapply(kos1, function(x) PROKARYOTES.DAT$KO[x])
-names(kos1) <- r1_keep$read_location
+names(kos1) <- r1_func$read_location
 
-# R2
-kos2 <- matches(r2_keep$gene, PROKARYOTES.DAT$gene, all.x = TRUE, all.y = FALSE, list = TRUE, indexes = TRUE)
-kos2 <- lapply(kos2, function(x) PROKARYOTES.DAT$KO[x])
-names(kos2) <- r2_keep$read_location
-
-# add also KO annotations to the larger dataframes for easier parsing later
-
-# R1
-all_kos1 <- matches(r1_func$gene, PROKARYOTES.DAT$gene, all.x = TRUE, all.y = FALSE, list = TRUE, indexes = TRUE)
-all_kos1 <- lapply(all_kos1, function(x) PROKARYOTES.DAT$KO[x])
-names(all_kos1) <- r1_func$read_location
-all_kos1 <- unlist(lapply(all_kos1, function(x) paste(x, collapse = ";")))
+# add them to the original data frames for easier parsing
+all_kos1 <- unlist(lapply(kos1, function(x) paste(x, collapse = ";")))
 r1_func$ko <- all_kos1
 
-# R2, filtered hits
-keep_kos2 <- unlist(lapply(kos2, function(x) paste(x, collapse = ";")))
-r2_keep$ko <- keep_kos2
+# R2
+kos2 <- matches(r2_func$gene, PROKARYOTES.DAT$gene, all.x = TRUE, all.y = FALSE, list = TRUE, indexes = TRUE)
+kos2 <- lapply(kos2, function(x) PROKARYOTES.DAT$KO[x])
+names(kos2) <- r2_func$read_location
 
-# R2, unique hits
-unique_kos2 <- matches(r2_uniq$gene, PROKARYOTES.DAT$gene, all.x = TRUE, all.y = FALSE, list = TRUE, indexes = TRUE)
-unique_kos2 <- lapply(unique_kos2, function(x) PROKARYOTES.DAT$KO[x])
-names(unique_kos2) <- r2_uniq$read_location
-unique_kos2 <- unlist(lapply(unique_kos2, function(x) paste(x, collapse = ";")))
-r2_uniq$ko <- unique_kos2
+all_kos2 <- unlist(lapply(kos2, function(x) paste(x, collapse = ";")))
+r2_func$ko <- all_kos2
 
-# which R2 hits, don't have KO annotations, further examine these
-l_r2 <- lengths(kos2)
-expl_r2 <- which(l_r2==0) 
-# there is most likely always those R2 hits with no KO annotations, no if sentence necessary?
-# or in that case, this script will just break.
+# combine the hits from paired reads
+print("Combining the hits from the paired reads")
 
-r1_expl <- r1_keep[expl_r2,]
-r2_expl <- r2_keep[expl_r2,]
+# where both mate pairs have a hit for the same read
+int_reads <- intersect(r1_func$read_location, r2_func$read_location)
 
-# these hits don't have KO annotation for R2 but their gene name for the paired reads is different than for corresponding R1 pair.
-# Thus, they have the potential to be hits to truly different proteins (instead of hitting a very similar homolog than R1)
-# following, explore the functionalities for the hits for these paired reads more closely.
+# pick those reads where both have a hit
+r1_func_int <- r1_func[int_reads,]
+r2_func_int <- r2_func[int_reads,]
 
-# further filter these results based on delivered KEGG function similarity
-r1_function <- unlist(lapply(X = r1_expl[,3], FUN =  function(x) {
+# R1 reads not having a hit for the R2 pair
+r1_uniq <- r1_func[-which(r1_func$read_location%in%int_reads),]
+
+# R2 reads not having a hit for the R1 pair
+r2_uniq <- r2_func[-which(r2_func$read_location%in%int_reads),]
+
+# these are always kept
+
+# for the reads, where both mate pairs have a hit, but the read hits for mate pairs in same order
+r1_func_int <- r1_func_int[order(r1_func_int$read_location),]
+r2_func_int <- r2_func_int[order(r2_func_int$read_location),]
+# this works, because there is only one (best) hit for each read. So only works with one hit / read. 
+
+# where both mate pairs have hit exactly to the same gene, always keep these
+locs_gene_match <- which(r1_func_int$gene==r2_func_int$gene)
+
+# always keep these as well, join with r1_uniq, doesn't matter if we use r1 or r2 here
+if(length(locs_gene_match)>0){
+  r1_uniq <- rbind(r1_uniq, r1_func_int[locs_gene_match,])
+  
+  # and remove from common hits for further inspection
+  r1_func_int <- r1_func_int[-locs_gene_match,]
+  r2_func_int <- r2_func_int[-locs_gene_match,]
+}
+
+# for the remaining reads, where both mate pairs have a hit, first see if one the hits is clearly better and save only that hit
+# if there is a bitscore difference of |>15| keep only the better scoring hit
+bitscore_diff <- r1_func_int$bitscore - r2_func_int$bitscore
+keep_r1 <- which(bitscore_diff >= 15)
+keep_r2 <- which(bitscore_diff <= (-15))
+
+# add to r1 uniq and r2 uniq
+if(length(keep_r1)>0){
+  r1_uniq <- rbind(r1_uniq, r1_func_int[keep_r1,])
+}
+
+if(length(keep_r2)>0){
+  r2_uniq <- rbind(r2_uniq, r2_func_int[keep_r2,])
+}
+
+# and remove from common hits for further inspection
+all_better_quality_hits <- c(keep_r1, keep_r2)
+if(length(all_better_quality_hits)>0){
+  r1_func_int <- r1_func_int[-all_better_quality_hits,]
+  r2_func_int <- r2_func_int[-all_better_quality_hits,]
+}
+
+# for the remaining common hits
+# if there is a ko annotation for r1,but not r2,keep r1
+# if there is a ko annotation for r2, but not r1, keep r2
+kos1_int <- kos1[rownames(r1_func_int)]
+kos2_int <- kos2[rownames(r2_func_int)]
+
+# get lengths
+l_r1 <- lengths(kos1_int)
+l_r2 <- lengths(kos2_int)
+
+keep_r1 <- which(l_r2==0 & l_r1>0)
+keep_r2 <- which(l_r1==0 & l_r2>0)
+
+# add to r1 uniq and r2 uniq
+if(length(keep_r1)>0){
+  r1_uniq <- rbind(r1_uniq, r1_func_int[keep_r1,])
+}
+
+if(length(keep_r2)>0){
+  r2_uniq <- rbind(r2_uniq, r2_func_int[keep_r2,])
+}
+
+# and remove from common hits for further inspection
+all_better_quality_hits <- c(keep_r1, keep_r2)
+if(length(all_better_quality_hits)>0){
+  r1_func_int <- r1_func_int[-all_better_quality_hits,]
+  r2_func_int <- r2_func_int[-all_better_quality_hits,]
+}
+
+# for those with ko hits in both, and there is some overlap, keep r1 hits but
+# keep only the overlapping ko(s) (most conservative), discard the rest ko annotations
+# for those with ko hits both, but no overlap, drop the hit entirely as unreliable
+kos1_int <- kos1[rownames(r1_func_int)]
+kos2_int <- kos2[rownames(r2_func_int)]
+
+# get lengths
+l_r1 <- lengths(kos1_int)
+l_r2 <- lengths(kos2_int)
+
+kos_in_both <- which(l_r1>0 & l_r2 >0)
+if(length(kos_in_both)>0){
+  kos1_explore <- kos1_int[kos_in_both]
+  kos2_explore <- kos2_int[kos_in_both]
+  new_kos <- list()
+  
+  for(ko in 1:length(kos1_explore)){
+    inter <- intersect(kos1_explore[[ko]], kos2_explore[[ko]])
+    if (length(inter) > 0) {
+      kos_keep <- inter
+      new_kos[[ko]] <- kos_keep
+    } else { # no intersect
+      new_kos[[ko]] <- NA
+    }
+  }
+  names(new_kos) <- names(kos1_explore)
+  
+  # drop those hits with no intersection of kos for mate pair hits where both have ko annotations
+  drop_hits <- which(is.na(new_kos))
+  keep_hits <- which(!is.na(new_kos))
+  
+  if(length(keep_hits)>0){
+    # add to r1 uniq but change ko annotation to intersection
+    new_kos <- new_kos[keep_hits]
+    r1_temp <- r1_func_int[kos_in_both[keep_hits],] # keep hits where both have ko.
+    new_kos <- new_kos[rownames(r1_temp)]
+    
+    # parse
+    new_kos <- unlist(lapply(new_kos, function(x) paste(x, collapse = ";")))
+    r1_temp$ko <- new_kos
+    
+    # add to r1 uniq
+    r1_uniq <- rbind(r1_uniq, r1_temp)
+  }
+  
+  # and remove these from common hits for further inspection
+  r1_func_int <- r1_func_int[-kos_in_both,]
+  r2_func_int <- r2_func_int[-kos_in_both,]
+}
+
+# now we should only be left with KEGG gene hits with no ko annotation for r1 and r2
+# for those hits with ko annotations in neither r1 or r2, compare the functional annotations.
+# if the functional annotation is less than 0.8 similar, drop that hit entirely as unreliable. 
+# for similar ones, keep r1 hits. These are only used for estimating the RPK sample sums.
+
+# extract the reported function from stitle for these hits for r1 and r2
+r1_function <- unlist(lapply(X = r1_func_int$stitle, FUN =  function(x) {
   y <- strsplit(x = x[1], split = " ")[[1]]
   paste(y[3:length(y)], collapse = " ")
 }))
-r2_function <- unlist(lapply(X = r2_expl[,3], FUN =  function(x) {
+r2_function <- unlist(lapply(X = r2_func_int$stitle, FUN =  function(x) {
   y <- strsplit(x = x[1], split = " ")[[1]]
   paste(y[3:length(y)], collapse = " ")
 }))
 
-# don't consider those hits in R2 with very similar function for the same readpair, as the paired reads are most likely just hitting very close homologs and these hits shouldn't be counted twice
+# put everything to lowercase
+r1_function <- tolower(r1_function)
+r2_function <- tolower(r2_function)
+
+# calculate functional similarity for these hits
 func_similarity <- stringsim(a = r1_function, b = r2_function)
 # osa similarity, the default method is used.
 # The Levenshtein distance (method='lv') counts the number of deletions, insertions and substitutions necessary to turn b into a. 
@@ -164,82 +246,23 @@ func_similarity <- stringsim(a = r1_function, b = r2_function)
 # The Optimal String Alignment distance (method='osa') is like the Levenshtein distance but also allows transposition of adjacent 
 # characters. Here, each substring may be edited only once. (For example, a character cannot be transposed twice to move it forward in the string).
 
-# remove those hits whos functionality string is more than 0.8 similar, ranges from 0 to 1
-locs_rem <- which(func_similarity>0.8) 
+drop_hits <- which(func_similarity<0.7)
+# if func similarity if < 0.7 the functional descriptions are very different already
+# remove all those, although some "proper hits" to close homologs for r1 and r2 might be included in this
+# length difference could be explored and used somehow here?
 
-if(length(locs_rem)>0){
+# drop these hits which are very unsimilar in their stitle
+if(length(drop_hits)>0){
+  r1_func_int <- r1_func_int[-drop_hits,]
   
-  # the function of these are not known, keep these even if the function string are similar
-  if(length(grep("hypothetical protein", r1_function[locs_rem], ignore.case = TRUE))>0){
-    locs_rem <- locs_rem[-grep("hypothetical protein", r1_function[locs_rem], ignore.case = TRUE)] 
-  }
-  
-  r1_expl <- r1_expl[-locs_rem,]
-  r2_expl <- r2_expl[-locs_rem,]
+  # and add the remaining to r1 uniq
+  r1_uniq <- rbind(r1_uniq, r1_func_int)
 }
 
-# keep these hits for R2
-all_keep <- c(rownames(r2_expl))
-
-# remove these from the lists for further exploration
-kos1_filt <- kos1[-expl_r2]
-kos2_filt <- kos2[-expl_r2]
-
-# all the remaining in the list to be investigated have KO annotation for R2
-# which of these don't have annotation for R1? Keep the R2 annotations for all of these.
-l_r1 <- lengths(kos1_filt)
-keep_r2 <- which(l_r1==0)
-
-# keep all of these
-if(length(keep_r2)>0){
-  all_keep <- c(all_keep, names(keep_r2))
-  
-  # remove these from the lists for further comparison
-  kos1_filt <- kos1_filt[-keep_r2]
-  kos2_filt <- kos2_filt[-keep_r2]
-}
-# now all the remaining hits have KO annotations for R1 and R2
-
-# check which R2 KO annotations are truly different from the R1 annotations - keep only those for R2
-# another option would be to keep all annotations but that would result in possibly different annotations for the same R1 genes - something we don't perhaps want.
-found2 <- logical(length(kos2_filt))
-for(i in 1:length(kos2_filt)){
-  found2[i] <- any(kos2_filt[[i]]%in%kos1_filt[[i]])
-}
-names(found2) <- names(kos2_filt)
-keep_r2 <- which(!found2)
-
-all_keep <- c(all_keep, names(keep_r2)) 
-# here we now have the names for all the R2 read hits we should keep
-
-if(length(all_keep)>0){ 
-  r2_keep <- r2_keep[all_keep,]
-  colnames(r2_keep)[1] <- "gene"
-  r2_func_filt <- rbind(r2_uniq, r2_keep)
-} else { # we don't have any additional R2 hits we want to keep in addition to read pairs having hits only in R2
-  r2_func_filt <- r2_uniq
-}
-# here we now have the R2 hits that either don't have a hit in R1 for the same pair, or the R1 hit differs markedly
-# from the R2 hit, in which case both are counted as valid hits.
-
-
-# print out
-print(paste("Preserved all of R1 hits with:", nrow(r1_func), "hits"))
-print("Number of R2 hits that were not found with paired reads in R1:")
-print(nrow(r2_func_filt))
-print("Making a proportion of all R2 hits:")
-print(nrow(r2_func_filt)/nrow(r2_func))
-
-# add information for each hit from which read it came from
-r1_func <- cbind(r1_func, rep("R1",nrow(r1_func)))
-r2_func_filt <- cbind(r2_func_filt, rep("R2", nrow(r2_func_filt)))
-
-colnames(r1_func)[ncol(r1_func)] <- "hit_readpair"
-colnames(r2_func_filt)[ncol(r2_func_filt)] <- "hit_readpair"
+# now in r1_uniq and in r2_uniq, we have all the hits we want to keep
 
 # concatenate all into one
-colnames(r1_func) <- colnames(r2_func_filt)
-all_hits <- rbind(r1_func, r2_func_filt)
+all_hits <- rbind(r1_uniq, r2_uniq)
 print(paste("Succesfully combined R1 and R2 with", nrow(all_hits), "hits in total"))
 
 # add RPK, RPM, RPKM for the calculation of TPM later

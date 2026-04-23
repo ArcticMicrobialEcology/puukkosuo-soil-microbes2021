@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=mag_processing_dereplication_coverm
-#SBATCH --error=8_mg_mag_dereplication_coverm_final_mags_%A_%a_err.txt
-#SBATCH --output=8_mg_mag_dereplication_coverm_final_mags_%A_%a_out.txt
+#SBATCH --error=8_mg_mag_dereplication_coverm_final_mags_%A_err.txt
+#SBATCH --output=8_mg_mag_dereplication_coverm_final_mags_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -12,7 +12,7 @@
 #SBATCH --gres=nvme:50
 
 # define the needed directories
-# this is the project root directory under which all the subdirectories, results etc. are created.
+# this is the project root directory
 project_root="" # e.g. "/scratch/project_number/puukkosuo"
 
 # this is the directory where all the external needed software not found already in Puhti have been installed to
@@ -27,6 +27,9 @@ r_script_dir="$scripts_dir/R_scripts/mag_based"
 
 # the main folder, where all the metagenomics analysis steps and results will be stored
 mg_main_dir="$project_root/metagenomics"
+
+# the main folder, where all the metatranscriptomics analysis steps and results will be stored
+mt_main_dir="$project_root/metatranscriptomics"
 
 # here are the trimmed fastq sequences files for the samples
 fastq_dir="$mg_main_dir/cutadapt_trimmed_fastq" 
@@ -125,7 +128,6 @@ coverm genome \
   --output-format dense
 echo "*******************************************************"
 echo "*******************************************************"
-
 
 echo "All done, thank you. Please double-check everything..."
 echo "*******************************************************"

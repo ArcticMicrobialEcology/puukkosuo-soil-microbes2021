@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=diamond_metmarkdb
-#SBATCH --error=8_mg_read_diamond_metmarkdb_%A_%a_err.txt
-#SBATCH --output=8_mg_read_diamond_metmarkdb_%A_%a_out.txt
+#SBATCH --error=8_mg_read_diamond_metmarkdb_%A_err.txt
+#SBATCH --output=8_mg_read_diamond_metmarkdb_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
-#SBATCH --time=71:00:00
+#SBATCH --time=12:00:00
 #SBATCH --account=project_2005827
 
 # a script to align the metagenomic reads to the metabolic marker gene database, combine the results from the paired reads and summarize to marker gene level

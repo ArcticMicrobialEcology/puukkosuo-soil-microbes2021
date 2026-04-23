@@ -5,12 +5,6 @@ args <- commandArgs(trailingOnly = TRUE)
 # the third input parameter needs to be if the MetMarkDB hits should be filtered (1) or not (0) with the defined default limits.
 # currently the default limits: e-value 10^-6 and bitscore 50, change if needed
 
-# e.g.
-# args <- character(3)
-# args[1] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/metagenomics/contig_based/prodigal_genes"
-# args[2] <- "/scratch/project_2009164/2_OULANKA/Tommi/final/databases/metmarkdb/Gene_metadata.RData"
-# args[3] <- "0"
-
 # a small script to parse the results the DIAMOND mapping of the Anvio called prodigal genes to the metabolic marker gene database into
 # a suitable format for Anvio
 

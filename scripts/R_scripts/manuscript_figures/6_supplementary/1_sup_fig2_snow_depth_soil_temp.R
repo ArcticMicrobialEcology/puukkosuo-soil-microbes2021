@@ -72,7 +72,6 @@ pdf(file = "soil_temp_grazing.pdf", width = 11, height = 12, onefile = T)
 par(mfrow=c(4,3))
 ylab <- "Temperature (C)"
 for(i in 1:length(all_months)){
-  par(mar = c(11.1, 4.1, 4.1, 2.1))
   temp <- soil_temp[which(soil_temp$Month==all_months[i]),]
   vals <- as.numeric(temp$Temp)
   g <- factor(temp$Grazing, levels = c("UGr_downslope", "Gr_upslope"))

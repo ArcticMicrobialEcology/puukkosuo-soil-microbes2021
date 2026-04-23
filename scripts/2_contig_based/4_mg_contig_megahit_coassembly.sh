@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=megahit_assembly
-#SBATCH --error=4_mg_contig_megahit_coassembly_%A_%a_err.txt
-#SBATCH --output=4_mg_contig_megahit_coassembly_%A_%a_out.txt
+#SBATCH --error=4_mg_contig_megahit_coassembly_%A_err.txt
+#SBATCH --output=4_mg_contig_megahit_coassembly_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

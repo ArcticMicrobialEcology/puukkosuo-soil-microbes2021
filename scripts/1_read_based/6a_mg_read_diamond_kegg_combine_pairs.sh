@@ -5,9 +5,9 @@
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
-#SBATCH --time=71:00:00
+#SBATCH --time=08:00:00
 #SBATCH --account=project_2005827
 #SBATCH --array=1-36
 
