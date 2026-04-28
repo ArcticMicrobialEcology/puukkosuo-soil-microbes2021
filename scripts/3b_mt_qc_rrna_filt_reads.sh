@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=fastqc_cutadapt
-#SBATCH --error=3b_qc_trim_rrna_filt_%A_err.txt
-#SBATCH --output=3b_qc_trim_rrna_filt_%A_out.txt
+#SBATCH --error=3b_mt_qc_trim_rrna_filt_%A_err.txt
+#SBATCH --output=3b_mt_qc_trim_rrna_filt_%A_out.txt
 #SBATCH --partition=small
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
