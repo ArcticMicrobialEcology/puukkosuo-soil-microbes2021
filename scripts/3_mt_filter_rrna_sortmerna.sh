@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=320G
 #SBATCH --time=71:00:00
-#SBATCH --account=project_2009164
+#SBATCH --account=your_project_account
 #SBATCH --array=1-36
 
 # a script to trim the metatranscriptomic reads for ribosomal RNA (rRNA)
@@ -56,27 +56,6 @@ sortmerna -ref "$sortmerna_db" \
 -other "$mt_main_dir/rrna_filtered_trimmed_fastq/$SAMPLE" \
 --workdir "$mt_main_dir/sortmerna_workdir/$SAMPLE" \
 --fastx --paired_in --out2 --threads "$SLURM_CPUS_PER_TASK"
-echo "*******************************************************"
-echo "*******************************************************"
-
-# perform fastqc for the rRNA filtered fastq files
-module load biokit/11.3.0 # fastqc 0.11.9 is used
-
-echo "[$(date -Is)] Running Fastqc and Multiqc for the metatranscriptomics rRNA filtered fastq files..."
-
-# create the directory
-mkdir -p "$mt_main_dir/fastqc/cutadapt_trimmed/rrna_filtered" 
-cd "$mt_main_dir/rrna_filtered_trimmed_fastq"
-for j in * 
-do
-	fastqc --noextract -t "$SLURM_CPUS_PER_TASK" -o "$mt_main_dir/fastqc/cutadapt_trimmed/rrna_filtered/" "$j"
-done
-
-# perform multiqc for the fastqc results
-module purge
-module load multiqc/1.19
-cd "$mt_main_dir/fastqc/cutadapt_trimmed/rrna_filtered"
-multiqc .
 echo "*******************************************************"
 echo "*******************************************************"
 echo "[$(date -Is)] All done. Bye
