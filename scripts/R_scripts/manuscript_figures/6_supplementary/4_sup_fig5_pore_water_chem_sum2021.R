@@ -29,11 +29,6 @@ pore_water_september <- pore_water[pore_water$Kuukausi=="syyskuu",]
 load(paste(project_root,"/metadata/Study_Metadata.RData", sep = ""))
 rownames(metadata) <- metadata$Plot
 
-# read-in metadata
-setwd("C:/Users/03261091/OneDrive - Luonnonvarakeskus/Oulanka_MG_MT_project_2009164/Metadata")
-sample_table <- data.frame(read_excel("Oulanka-ACAP-study site.xlsx"), stringsAsFactors = F, check.names = F)
-rownames(sample_table) <- sample_table$Plot
-
 # organize according to metadata
 rownames(pore_water_may) <- pore_water_may$RuutuID
 rownames(pore_water_june) <- pore_water_june$RuutuID
