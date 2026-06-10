@@ -9,7 +9,7 @@ load(paste(project_root, "/metagenomics/mag_based/final_mags/Final_MAG_Taxonomy_
 
 # produce a table and some summaries of MAG completeness etc for the manuscript.
 
-# read-in thje sumamries of the bins from the different conditions
+# read-in the summaries of the bins from the different conditions
 # grazed
 setwd("/scratch/project_2009164/2_OULANKA/Tommi/final/metagenomics/mag_based/Grazed/MAGs/metabat2/summary_refined_mags")
 grazed_bins <- read.csv(paste(project_root, "/metagenomics/mag_based/Grazed/MAGs/metabat2/summary_refined_mags/bins_summary.txt", sep = ""), sep = "\t")
@@ -42,16 +42,22 @@ rownames(all_bins) <- rownames(dereplication_report)
 all_bins <- cbind(all_bins, dereplication_report)
 
 # load and add taxonomy and MAG information as rownames
-load("/scratch/project_2009164/2_OULANKA/Tommi/final/manuscript/fig6_related/modified_gtdb_tax_silva.RData")
 load(paste(project_root, "/downstream/manuscript_figures/figure6/modified_gtdb_tax_silva.RData", sep = ""))
 all(all_bins$cluster==rownames(gtdbtk_report)) # TRUE
 
+# ensure same ordering for bin information and GTDB-TK report
+rownames(all_bins) <- all_bins$cluster
+gtdbtk_report <- gtdbtk_report[rownames(all_bins),]
+
+# add gtdb report to all bins
+all_bins <- cbind(all_bins, gtdbtk_report)
+
+# add MAG names as row names
 m_num <- seq(1:nrow(gtdbtk_report))
 r_names <- paste("MAG",m_num, "; ",gtdbtk_report$Phylum, "; ", gtdbtk_report$Order, "; ", gtdbtk_report$Genus, sep = "")
 rownames(all_bins) <- r_names
 
 # save the table
-
 # change directory - needs to exist
 setwd(paste(project_root, "/downstream/manuscript_figures/supplementary", sep = ""))
 save(all_bins, file = "All_MAGs_info.RData")
